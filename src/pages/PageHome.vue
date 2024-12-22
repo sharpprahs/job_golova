@@ -78,7 +78,8 @@
               class="custom-input"
               :placeholder="input.placeholder"
               :value="getPasswordMask(input.value)"
-              @input="onPasswordInput($event, index)"
+              @input="(event) => onPasswordInput(event, index)"
+              @blur="() => validateInput(index)"
             />
           </template>
 
@@ -90,11 +91,15 @@
               :type="input.type"
               class="custom-input"
               :placeholder="input.placeholder"
+              @blur="() => validateInput(index)"
             />
           </template>
 
+          <!-- Ошибка -->
+          <p v-if="input.error" class="error-text">{{ input.errorText }}</p>
+
           <!-- Кнопка очистки -->
-          <button @click="clearInput(index)" class="close-button">✕</button>
+          <button @click="clearInputField(index)" class="close-button">✕</button>
         </div>
         <div class="registration_job_golova_form_group">
           <input type="checkbox" id="terms" name="terms" class="custom-checkbox" required checked>
@@ -134,42 +139,47 @@ function handleClick(event: object) {
 const events = ['Концерты', 'Вечеринки', 'Фестивали', 'Показы', 'Презентации']
 
 
-// Типы данных для инпутов
 interface InputField {
   id: number;
   label: string;
   placeholder: string;
   type: string;
   value: string;
+  error: boolean; // Статус ошибки
+  errorText: string; // Текст ошибки
 }
 
 const inputs = reactive<InputField[]>([
-  { id: 1, label: "ФИО", placeholder: "Введите ФИО", type: "text", value: "Иван Иванов Иванович" },
-  { id: 2, label: "Телефон", placeholder: "+7 (___) ___ __ __", type: "tel", value: "+7 (926) 632 90 63" },
-  { id: 3, label: "Email", placeholder: "Введите email", type: "email", value: "hello@golova.eu" },
-  { id: 4, label: "Пароль", placeholder: "Введите пароль", type: "password", value: "олролрол" },
+  { id: 1, label: "ФИО", placeholder: "Введите ФИО", type: "text", value: "Иван Иванов Иванович", error: false, errorText: "Пожалуйста, введите корректное ФИО" },
+  { id: 2, label: "Телефон", placeholder: "+7 (___) ___ __ __", type: "tel", value: "+7 (926) 632 90 63", error: false, errorText: "Неверный формат телефона" },
+  { id: 3, label: "Email", placeholder: "Введите email", type: "email", value: "hello@golova.eu", error: false, errorText: "Некорректный email" },
+  { id: 4, label: "Пароль", placeholder: "Введите пароль", type: "password", value: "олролрол", error: false, errorText: "Пароль слишком короткий" },
 ]);
-// Текущее состояние ширины экрана
-const screenWidth = ref(window.innerWidth)
 
-// Выбор Lottie-анимации в зависимости от ширины экрана
-const currentTextLottieJSON = computed(() => {
-  return screenWidth.value <= 450 ? VerticalJSON : HorizontalJSON
-})
+// Проверка ошибок
+const validateInput = (index: number) => {
+  const input = inputs[index];
 
-// Обновляем ширину экрана при изменении размеров окна
-const updateScreenWidth = () => {
-  screenWidth.value = window.innerWidth
-}
+  if (!input.value) {
+    input.error = true;
+    input.errorText = "Поле обязательно для заполнения";
+  } else if (input.type === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)) {
+    input.error = true;
+    input.errorText = "Введите корректный email";
+  } else if (input.type === "tel" && !/^\+7 \(\d{3}\) \d{3} \d{2} \d{2}$/.test(input.value)) {
+    input.error = true;
+    input.errorText = "Введите корректный номер телефона";
+  } else {
+    input.error = false; // Сбрасываем ошибку
+  }
+};
 
-// Добавляем и удаляем слушатель события "resize"
-onMounted(() => {
-  window.addEventListener('resize', updateScreenWidth)
-})
+// Очистка инпута
+const clearInputField = (index: number) => {
+  inputs[index].value = "";
+  inputs[index].error = false; // Сбрасываем ошибку при очистке
+};
 
-onUnmounted(() => {
-  window.removeEventListener('resize', updateScreenWidth)
-})
 // Возвращаем строку из звёздочек, равную длине пароля
 const getPasswordMask = (value: string): string => {
   return "*".repeat(value.length);
@@ -193,10 +203,54 @@ const onPasswordInput = (event: Event, index: number) => {
   console.log(inputs[index].value);
 };
 
-// Очистка инпута
-const clearInput = (index: number) => {
-  inputs[index].value = "";
-};
+// Текущее состояние ширины экрана
+const screenWidth = ref(window.innerWidth)
+
+// Выбор Lottie-анимации в зависимости от ширины экрана
+const currentTextLottieJSON = computed(() => {
+  return screenWidth.value <= 450 ? VerticalJSON : HorizontalJSON
+})
+
+// Обновляем ширину экрана при изменении размеров окна
+const updateScreenWidth = () => {
+  screenWidth.value = window.innerWidth
+}
+
+// Добавляем и удаляем слушатель события "resize"
+onMounted(() => {
+  window.addEventListener('resize', updateScreenWidth)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', updateScreenWidth)
+})
+// // Возвращаем строку из звёздочек, равную длине пароля
+// const getPasswordMask = (value: string): string => {
+//   return "*".repeat(value.length);
+// };
+//
+// // Обработка ввода пароля
+// const onPasswordInput = (event: Event, index: number) => {
+//   const target = event.target as HTMLInputElement;
+//
+//   // Добавляем новый символ к реальному паролю
+//   const currentValue = inputs[index].value;
+//   const newValue = target.value;
+//
+//   // Определяем, был ли удалён символ (если длина стала меньше)
+//   if (newValue.length < currentValue.length) {
+//     inputs[index].value = currentValue.slice(0, -1); // Удаляем последний символ
+//   } else {
+//     // Добавляем новый символ
+//     inputs[index].value += newValue.slice(currentValue.length);
+//   }
+//   console.log(inputs[index].value);
+// };
+//
+// // Очистка инпута
+// const clearInput = (index: number) => {
+//   inputs[index].value = "";
+// };
 </script>
 
 <style scoped>

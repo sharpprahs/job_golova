@@ -293,7 +293,14 @@ margin-top: 40px;
     left: 7%;
     font-size: 8px;
 }
+.error-text{
+    position: absolute;
+    font-size: 12px !important;
+    color: #E63A1E !important;
+    right: 0;
+    bottom: -26%;
 
+}
 /* Инпут */
 .custom-input {
     width: 100%;
@@ -412,6 +419,7 @@ margin-top: 40px;
     margin-left: auto;
     margin-right: 0;
 }
+
 @media screen and (max-width: 1400px) {
 main{
     /*50px to 0px*/

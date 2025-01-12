@@ -1,5 +1,5 @@
 <template>
-  <header class="">
+  <header ref="headerRef" class="header_home">
     <a href="/" id="link_to_home">job.golova</a>
     <button
       class="menu_icon"
@@ -11,7 +11,7 @@
     </button>
     <ul :class="{ _active: isMenuOpen }">
       <li>
-        <a>Зарегистрироваться</a>
+        <a @click.prevent="emitRegisterClick">Зарегистрироваться</a>
       </li>
       <li>
         <a>Личный кабинет</a>
@@ -70,6 +70,21 @@ const toggleMenu = () => {
 onUnmounted(() => {
   document.body.classList.remove('_lock')
 })
+// Локальная ссылка на <header>
+const headerRef = ref<HTMLElement | null>(null)
+
+// "Экспортируем" ссылку наружу
+defineExpose({
+  headerRef,
+})
+// Определяем событие, которое будем эмитить
+const emit = defineEmits(["registerClick"])
+
+// Функция-обработчик клика
+function emitRegisterClick() {
+  // Эмитим событие "registerClick" наверх
+  emit("registerClick")
+}
 </script>
 
 <style scoped>

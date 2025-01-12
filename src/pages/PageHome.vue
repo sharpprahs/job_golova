@@ -1,6 +1,7 @@
 <template>
+  <div class="home_container">
   <div class="container_main">
-    <ComponentHeader />
+    <ComponentHeader ref="componentHeaderRef" @registerClick="scrollToSection" />
     <main>
       <div class="general_info">
         <h1>
@@ -32,8 +33,7 @@
         <div class="lottie_text">
           <Vue3Lottie :animationData="currentTextLottieJSON" />
         </div>
-        <button  @click="handleClick">Заполнить анкету
-        </button>
+        <router-link to="/questionnaire">Заполнить анкету</router-link>
       </section>
       <section class="what_is_job_golova">
            <job-element/>
@@ -57,7 +57,7 @@
           <about-us-two/>
         </div>
       </section>
-      <section class="registration_job_golova">
+      <section  ref="registrationSection"  class="registration_job_golova">
         <h2>Зарегистрироваться</h2>
         <p>Пожалуйста, укажите ваши ФИО как в паспорте,<br> это важно для проверки.</p>
         <div
@@ -113,6 +113,7 @@
         </button>
       </section>
     <component-footer/>
+  </div>
   </div>
 </template>
 
@@ -224,36 +225,28 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('resize', updateScreenWidth)
 })
-// // Возвращаем строку из звёздочек, равную длине пароля
-// const getPasswordMask = (value: string): string => {
-//   return "*".repeat(value.length);
-// };
-//
-// // Обработка ввода пароля
-// const onPasswordInput = (event: Event, index: number) => {
-//   const target = event.target as HTMLInputElement;
-//
-//   // Добавляем новый символ к реальному паролю
-//   const currentValue = inputs[index].value;
-//   const newValue = target.value;
-//
-//   // Определяем, был ли удалён символ (если длина стала меньше)
-//   if (newValue.length < currentValue.length) {
-//     inputs[index].value = currentValue.slice(0, -1); // Удаляем последний символ
-//   } else {
-//     // Добавляем новый символ
-//     inputs[index].value += newValue.slice(currentValue.length);
-//   }
-//   console.log(inputs[index].value);
-// };
-//
-// // Очистка инпута
-// const clearInput = (index: number) => {
-//   inputs[index].value = "";
-// };
+const registrationSection = ref<HTMLElement | null>(null)
+// Ссылка на компонент хедера
+const componentHeaderRef = ref<InstanceType<typeof ComponentHeader> | null>(null)
+
+function scrollToSection() {
+  if (!registrationSection.value) return
+
+  // Получаем координату секции
+  const elementTop = registrationSection.value.getBoundingClientRect().top + window.pageYOffset
+
+  // Узнаём высоту <header>
+  // благодаря defineExpose() в дочернем компоненте:
+  const headerHeight = componentHeaderRef.value?.headerRef?.offsetHeight ?? 0
+
+  // Скроллим с учётом реальной высоты шапки
+  window.scrollTo({
+    top: elementTop - headerHeight,
+    behavior: 'smooth'
+  })
+}
 </script>
 
 <style scoped>
-
 
 </style>

@@ -1,4 +1,8 @@
-header{
+:root{
+    --main_bc_header: rgb(0, 0, 0);
+    --main_tc_header: #ffffff;
+}
+.header_home{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -7,7 +11,7 @@ header{
     margin: 0 auto;
     width:1320px;
     border-bottom: 2px solid #ffffff;
-    background-color: var(--main_bc);
+    background-color: var(--main_bc_header);
     z-index: 2;
     transform: translateX(-50%);
     left: 50%;
@@ -34,7 +38,7 @@ header{
     background-image: url("/src/assets/svg/logo_white.svg");
     background-repeat: no-repeat;
 }
-header ul{
+.header_home ul{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -43,13 +47,13 @@ header ul{
     font-size: clamp(1.375rem, 1.3316rem + 0.2041vw, 1.5rem);
     position: relative;
 }
-header li{
+.header_home li{
     position: relative;
 }
 .lang_select{
-    background-color: var(--main_bc);
+    background-color: var(--main_bc_header);
     border: 2px solid #ffffff;
-    color: var(--main_tc);
+    color: var(--main_tc_header);
     font-size: 16px;
     display: flex;
     flex-direction: row;
@@ -76,12 +80,12 @@ header li{
     transform: translate(-50%,-50%);
     left: 50%;
     top:205%;
-    background-color: var(--main_bc);
+    background-color: var(--main_bc_header);
 }
 .lang_select__options li{
     display: flex;
     flex-direction: column;
-    color: var(--main_tc);
+    color: var(--main_tc_header);
     width: 90%;
     cursor: pointer;
     align-items: center;
@@ -157,7 +161,7 @@ header li{
 }
 
 @media screen and (max-width: 1400px) {
-header{
+    .header_home{
     width: 100%;
     position: relative;
 }
@@ -169,7 +173,7 @@ header{
     }
 }
 @media screen and (max-width: 1400px) {
-    header ul{
+    .header_home ul{
         display: none;
      position: absolute;
         transform: translate(-50%, -50%);
@@ -181,7 +185,7 @@ header{
         padding: 35px 25px 35px 25px;
         border-radius: 10px;
     }
-    header ul._active{
+    .header_home ul._active{
         display: flex;
         transition: 1s ease-in-out;
         animation: slideDown 0.5s ease-in-out;
@@ -207,7 +211,7 @@ header{
     }
 }
 @media screen and (max-width: 765px) {
-    header ul{
+    .header_home ul{
         gap: 25px;
         align-items: start;
         top: 200%;
@@ -216,7 +220,7 @@ header{
 }
 
 @media screen and (max-width: 546px) {
-    header{
+    .header_home {
         width: 95%;
         transform: none;
         left: unset;

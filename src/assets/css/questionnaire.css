@@ -1,0 +1,12 @@
+:root {
+    --main_bc_qu: #ffffff;
+    --main_tc_qu: #1D1D1B;
+}
+
+.questionnaire_container{
+    background-color: var(--main_bc_qu);
+    align-items: center;
+    color: var(--main_tc_qu);
+    font-weight: 400;
+    font-family: 'PragmataProMono', monospace;
+}

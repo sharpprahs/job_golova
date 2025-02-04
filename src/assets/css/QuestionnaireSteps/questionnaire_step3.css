@@ -1,0 +1,153 @@
+.styled-table {
+    width: 100%;
+    border-radius: 10px;
+    font-family: 'PragmataProMono', monospace;
+    margin-top: 30px;
+    font-size: 14px;
+    padding-bottom: 25px;
+    border: 1px solid #B7B7B7;
+    table-layout: fixed;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 5px 16px;
+    text-align: left;
+}
+.styled-table th.col-name {
+    width: 60%; /* Первый столбец — 80% */
+    padding: 12px;
+}
+
+.styled-table th.col-wage {
+    width: 40%; /* Второй столбец — 20% */
+}
+
+.styled-table thead th {
+    background-color: transparent;
+    border-bottom: 1px solid #B7B7B7;
+    font-weight: 400;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+.styled-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.styled-table input[type="checkbox"] {
+    margin-right: 8px;
+}
+.styled-table tbody tr:first-child td {
+    padding-top: 10px; /* Отступ сверху для первой строки */
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/*.input-container input[type="number"] {*/
+/*    width: 150px;*/
+/*    padding: 6px;*/
+/*    font-size: 14px;*/
+/*    border: 1px solid #ccc;*/
+/*    border-radius: 4px;*/
+/*}*/
+
+.input-container-quest .currency {
+    font-size: 14px;
+    color: #666;
+}
+.input-container-quest {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /*width: 150px; !* Ширина контейнера *!*/
+}
+
+.input-with-currency {
+    width: 100%;
+    padding-right: 30px; /* Отступ для символа рубля */
+    padding-left: 10px;
+    height: 36px;
+    font-size: 16px;
+    border: 1px solid #000;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.input-container-quest:nth-of-type(1){
+    margin-top: 0;
+}
+.input-container-quest::after {
+    content: "₽"; /* Символ рубля */
+    position: absolute;
+    right: 10px; /* Расстояние от правого края */
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #666;
+    pointer-events: none; /* Отключаем взаимодействие */
+}
+
+/* Стили для чекбокса */
+.custom-checkbox-quest {
+    -webkit-appearance: none; /* Убираем стандартный вид */
+    -moz-appearance: none;
+    appearance: none;
+    min-width: 14px;
+    height: 14px;
+    border: 1px solid #DCDCDC; /* Чёрная рамка */
+    border-radius: 4px; /* Скруглённые углы */
+    outline: none;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff; /* Белый фон */
+}
+
+.custom-checkbox-quest:checked {
+    position: relative;
+    background-color: #000000;
+    z-index: 0;
+    border: 1px solid #000000; /* Чёрная рамка */
+}
+
+.custom-checkbox-quest:checked::before {
+    content: '';
+    position: absolute;
+    top: 60%;
+    left: 52%;
+    width: 8px;
+    z-index: 2;
+    height: 8px;
+    background-image: url('../../svg/checked_white.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    transform: translate(-50%, -50%);
+}
+
+@media screen and (max-width: 546px) {
+    .styled-table th.col-wage{
+        width: 52%;
+    }
+    .input-with-currency{
+        padding-right: 10px;
+        text-align: center;
+    }
+    .input-container-quest::after{
+        display: none;
+    }
+    .custom-checkbox-quest:checked{
+        background-color: #3E7DC0;
+        border: 1px solid #3E7DC0;
+    }
+    .styled-table th.col-name{
+        width: 50%;
+    }
+}

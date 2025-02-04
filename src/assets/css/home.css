@@ -32,7 +32,7 @@ button,a{
     position: relative;
 }
 
-main {
+.container_main main {
     width: 100%;
     margin-top: 150px;
     display: flex;
@@ -40,7 +40,7 @@ main {
     align-items: center;
 }
 
-main h1 {
+.container_main main h1 {
     /*font-size: 86px to 40px;*/
     font-size: clamp(2.5rem, 1.5026rem + 4.6939vw, 5.375rem);
     line-height: 112px;
@@ -50,11 +50,11 @@ main h1 {
     white-space: nowrap;
 }
 
-main h1 span {
+.container_main main h1 span {
     position: relative;
 }
 
-main h1 span:before {
+.container_main main h1 span:before {
     position: absolute;
     content: "";
     width: 95px;
@@ -424,7 +424,7 @@ margin-top: 40px;
 }
 
 @media screen and (max-width: 1400px) {
-main{
+    .container_main main{
     /*50px to 0px*/
     margin-top: clamp(0rem, -1.0842rem + 5.102vw, 3.125rem);
     margin-bottom: 50px;
@@ -434,11 +434,11 @@ main{
         width: 80%;
         margin: 50px auto;
     }
-    main h1{
+    .container_main main h1{
         line-height: 120%;
         width: 100%;
     }
-    main h1 span:before{
+    .container_main main h1 span:before{
         display: none;
     }
     .registration_job_golova{
@@ -488,10 +488,10 @@ main{
     .what_is_job_golova{
         width: 95%;
     }
-    main h1{
+    .container_main main h1{
         white-space: normal;
     }
-    main h1 br{
+    .container_main main h1 br{
         display: none;
     }
     .lottie_text{

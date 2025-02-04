@@ -1,0 +1,552 @@
+.upload-container {
+    width: 100%;
+    margin-top: 30px;
+    padding: 50px 0 86px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid #B7B7B7;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+}
+
+.camera-button,
+.upload-label {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.camera-button:hover,
+.upload-label:hover {
+    background-color: #0056b3;
+}
+
+.file-input {
+    display: none;
+}
+
+.file-name {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #333;
+}
+.camera_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+.camera_view {
+    background: #6476bd;
+    width: 800px;
+    justify-content: center;
+    display: flex;
+    padding: 25px;
+    border-radius: 25px;
+    box-shadow: 0 0 20px rgba(148, 148, 148, 0.13);
+    flex-direction: column;
+    align-items: center;
+    animation: popupFadeIn 0.3s ease-in-out;
+    z-index: 1001;
+}
+.overflow-hidden {
+    overflow: hidden;
+}
+/* Определяем @keyframes для анимации */
+@keyframes fadeIn {
+    0% {
+        opacity: 0; /* Прозрачный */
+        transform: scale(0.95); /* Уменьшенный размер */
+    }
+    100% {
+        opacity: 1; /* Полностью видимый */
+        transform: scale(1); /* Нормальный размер */
+    }
+}
+
+.camera_view video {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.camera_view_buttons{
+    display: flex;
+    gap: 20px;
+    padding-top: 15px;
+    margin: 5px auto;
+    align-items: center;
+    transition: 0.3s ease-in-out;
+    flex-direction: row;
+}
+
+.make_photo{
+    background-color: rgba(0, 0, 0, 0.45);
+    border-radius: 50px;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.make_photo svg {
+    min-width: 25px;
+    height: 25px;
+}
+.make_photo svg path {
+    fill: rgba(255, 255, 255, 0.92);
+}
+
+.close_camera{
+    background-color: rgba(0, 0, 0, 0.45);
+    border-radius: 50px;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+/* Ваши стили */
+
+/* Иконка */
+.download-file-container {
+    display: inline-block;
+    transition: transform 0.5s ease-out;
+    transform-origin: center;
+    perspective: 1000px;
+}
+
+/* Камера */
+.camera_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.camera_view {
+    background: #6476bd;
+    width: 800px;
+    justify-content: center;
+    display: flex;
+    padding: 25px;
+    border-radius: 25px;
+    box-shadow: 0 0 20px rgba(148, 148, 148, 0.13);
+    flex-direction: column;
+    align-items: center;
+    animation: popupFadeIn 0.3s ease-in-out;
+    z-index: 1001;
+}
+
+.file-input {
+    display: none;
+}
+
+.choice_container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 25px;
+    align-items: center;
+}
+
+/* "photo_container" — размеры, align */
+
+
+
+
+/* Контейнер для изображения */
+.image-container {
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    position: relative;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: grab;
+    touch-action: none; /* Отключает жесты браузера, позволяет тач-перетаскивание */
+}
+
+.image-container img {
+    position: absolute;
+    will-change: transform;
+    user-select: none;
+    pointer-events: none; /* убираем события с картинки, т.к. перетаскиваем контейнер */
+}
+
+.image-container img:active {
+    cursor: grabbing;
+}
+/* Ползунок */
+.resize-controls {
+    margin-top: 20px;
+    display: flex;
+    width: 250px;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.saved_data_quest {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+    background-color: #ececec;
+}
+
+.camera_view_buttons {
+    display: flex;
+    gap: 20px;
+    padding-top: 15px;
+    margin: 5px auto;
+    align-items: center;
+    transition: 0.3s ease-in-out;
+    flex-direction: row;
+}
+
+.make_photo {
+    background-color: rgba(0, 0, 0, 0.45);
+    border-radius: 50px;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.make_photo svg {
+    min-width: 25px;
+    height: 25px;
+}
+.make_photo svg path {
+    fill: rgba(255, 255, 255, 0.92);
+}
+
+.close_camera {
+    background-color: rgba(0, 0, 0, 0.45);
+    border-radius: 50px;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.close_camera svg {
+    min-width: 25px;
+    height: 25px;
+}
+.close_camera svg path {
+    fill: rgba(255, 255, 255, 0.92);
+}
+
+.choice_container button {
+    background-color: transparent;
+    position: relative;
+}
+
+.choice_container button:before {
+    content: "";
+    width: 90%;
+    position: absolute;
+    border-bottom: 1px solid rgba(3, 2, 2, 0.6);
+    transform: translateX(-50%);
+    left: 50%;
+    bottom: 0;
+}
+
+/* Анимация для .camera_view */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+/* Основной вид */
+.styled-range {
+    /* Убираем стандартный стиль */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    width: 100%;
+    height: 8px;
+    border-radius: 5px;
+    outline: none;
+
+    /* По умолчанию делаем фон прозрачным,
+       так как мы будем «рисовать» градиент инлайном через :style="rangeStyle" */
+    background: transparent;
+
+    /* Плавный переход при изменении */
+    transition: background 0.3s ease;
+}
+
+/* Дорожка в Chrome/Safari/Edge (WebKit) */
+.styled-range::-webkit-slider-runnable-track {
+    height: 8px;
+    border-radius: 5px;
+    background: transparent; /* очень важно, иначе перебивает наш inline-градиент */
+}
+
+/* Сам «ползунок» (thumb) в Chrome/Safari */
+.styled-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #ddd;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    /* Смещение, чтобы кружок был по центру дорожки */
+    margin-top: -6px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.styled-range::-webkit-slider-thumb:hover {
+    background: #bbb;
+    transform: scale(1.1);
+}
+
+/* Дорожка в Firefox */
+.styled-range::-moz-range-track {
+    height: 8px;
+    border-radius: 5px;
+    background: transparent;
+}
+
+/* Ползунок в Firefox */
+.styled-range::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #ddd;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+/* При наведении на ползунок (Firefox) */
+.styled-range::-moz-range-thumb:hover {
+    background: #bbb;
+    transform: scale(1.1);
+}
+
+.close_camera svg{
+    min-width: 25px;
+    height: 25px;
+}
+.close_camera svg path {
+    fill: rgba(255, 255, 255, 0.92);
+}
+.choice_container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 25px;
+    align-items: center;
+}
+.choice_container button{
+    background-color: transparent;
+    position: relative;
+}
+.choice_container button:before {
+    content: "";
+    width: 90%;
+    position: absolute;
+    border-bottom: 1px solid rgba(3, 2, 2, 0.6);
+    transform: translateX(-50%);
+    left: 50%;
+    bottom: 0;
+}
+.photo_container{
+    /*width: 180px;*/
+    width: 216px;
+    /*border: 1px solid black;*/
+    height: 240px;
+    /*height: 202px;*/
+    touch-action: none;
+    border-radius: 10px;
+    /*overflow: hidden;*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.cropper-crop-box{
+    width: 90% !important;
+    height: 90% !important;
+}
+.cropper-point{
+    background-color: #aeffc0 !important;
+}
+.cropper-line{
+    background-color: #25ff77 !important;
+}
+.wait_photo{
+    cursor: pointer;
+    width: 100%;
+    height: auto;
+}
+.profile-photo{
+    width: auto;
+    transition: 0.1s ease-in-out;
+    cursor: grab;
+    height: 100%;
+}
+.profile-photo:active {
+    cursor: grabbing;
+}
+.profile-photo.loading {
+    opacity: 0;
+}
+
+.saved_data_quest{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+    background-color: #ececec;
+}
+.resize-controls svg {
+    width: 95%;
+    height: auto;
+    cursor: pointer;
+}
+
+.styled-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px; /* Высота полосы */
+    border-radius: 10px; /* Скруглённые углы полосы */
+    outline: none;
+    background: linear-gradient(to right, red 0%, #ccc 0%); /* Начальный фон */
+    transition: background 0.3s ease;
+    position: relative;
+}
+/* Контейнер для cropper (вы можете задать фиксированные размеры при желании) */
+.container_for_edit_img_and_drag_and_drop {
+    width: 100%; /* например */
+   height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* чтобы не было полос прокрутки */
+    border: 1px solid #aaa;
+    position: relative;
+    border-radius: 10px;
+    /*padding: 20px;*/
+    background-color: rgba(0, 0, 0, 0.7);
+    margin: 0 auto;
+}
+.container_for_edit_img_and_drag_and_drop img{
+    width: 100%;
+    height: 100%;
+}
+
+/* Ползунок */
+.styled-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px; /* Диаметр ползунка */
+    height: 20px;
+    background: #ddd; /* Цвет ползунка */
+    border: 2px solid #ccc; /* Обводка ползунка */
+    border-radius: 50%; /* Ползунок круглый */
+    cursor: pointer;
+    position: relative;
+    /*top: 220% !important; !* Выравнивание по центру *!*/
+    transform: translateY(-5%); /* Смещение для центровки */
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.styled-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #ddd;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    top: 50%; /* Выравнивание по центру */
+    transform: translateY(-50%); /* Смещение для центровки */
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+/* Ховер эффект для ползунка */
+.styled-slider::-webkit-slider-thumb:hover,
+.styled-slider::-moz-range-thumb:hover {
+    background: #bbb;
+    transform: scale(1.1) translateY(-50%); /* Увеличение при наведении */
+}
+
+@media screen and (max-width: 950px) {
+  .camera_view{
+      width: 95%;
+      height: 80vh;
+      padding: 0;
+  }
+    .photo_container{
+        width: 90%;
+    }
+    .camera_view video{
+        height: 80%;
+        width: 95%;
+        background-color: #000000;
+    }
+}
+@media screen and (max-width: 460px) {
+    .image-container{
+        width: 85%;
+    }
+    .resize-controls{
+        width: 80%;
+    }
+}
+@media screen and (max-width: 420px) {
+    .choice_container{
+        flex-direction: column;
+        gap: 5px;
+    }
+}

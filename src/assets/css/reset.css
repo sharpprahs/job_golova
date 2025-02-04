@@ -208,7 +208,7 @@ img {
  */
 button{
     /*padding: 0;*/
-    /*border: none;*/
+    border: none;
     /*font: inherit;*/
     /*color: inherit;*/
     /*background-color: transparent;*/
@@ -315,6 +315,7 @@ legend {
 
     /* 1 */
 }
+
 /**
  * Add the correct vertical alignment in Chrome, Firefox, and Opera.
  */
